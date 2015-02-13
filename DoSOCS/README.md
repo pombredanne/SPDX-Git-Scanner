@@ -57,13 +57,12 @@ Usage
 
 - `packagePath': '[Path to archive]` Allows user to specify which package to run DoSPDX against.
   - Conditonaly optional, Required if used with `-s` or `--scan`
-  - ***Example:*** `./DoSPDX.py -p archive.tar.bz2`
-- 'scan' : True | False ` Runs a scan on the package specified in package path argument.  True by default.
-  - Conditonaly optional, Required if used with `-s` or `--scan`
-  - ***Example:*** `./DoSPDX.py -p archive.tar.bz2 -s`
+  - ***Example:*** `dospdx({'packagePath': 'archive.tar.bz2'})`
+- 'scan': True | False ` Runs a scan on the package specified in package path argument.  True by default.
+  - ***Example:*** `dospdx({'scan': False})
 - `--print [format]` Prints out SPDX document in specified format.
   - Optional
-  - ***Example:*** `./DoSPDX.py --print TAG` or `./DoSPDX.py --print RDF`
+  - ***Example:*** `spdx({'output': 'TAG'})` or `spdx({'output': 'RDF')`
 - `--documentComment [Document Comment]` Specifies SPDX document Comment section.
   - Optional 
   - ***Example:*** `./DoSPDX.py --documentComment "Scanned as part of the Yocto build process."`
