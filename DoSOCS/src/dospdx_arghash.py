@@ -15,7 +15,7 @@ class DospdxArgHash(zdhash.ZDHash):
                      'packageSourceInfo': "",
                      'packageLicenseComments': "",
                      'packageDescription': "",
-                     'scanOption': "",
+                     'scanOption': "fossology",
                      'output': "",
-                     'scan': False,
+                     'scan': True,
                      'spdxDocId': None}

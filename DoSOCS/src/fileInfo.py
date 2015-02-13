@@ -52,7 +52,7 @@ class fileInfo:
             self.getChecksum()
             self.fileName = os.path.split(filePath)[1]
 
-    def getFileInfo(self, package_file_id, package_id, dbCursor):
+    def getFileInfo(self, package_file_id, dbCursor):
         '''populates fileInfo from database'''
 
         sqlCommand = """SELECT  pf.file_name,
@@ -72,9 +72,9 @@ class fileInfo:
                                 dfpa.relative_path,
                                 pf.file_checksum_algorithm
                         FROM package_files AS pf
-                             LEFT OUTER JOIN doc_file_package_associations AS dfpa ON pf.id = dfpa.package_file_id AND dfpa.package_id = %s 
+                             LEFT OUTER JOIN doc_file_package_associations AS dfpa ON pf.id = dfpa.package_file_id 
                         WHERE pf.id = %s"""
-        dbCursor.execute(sqlCommand, (package_id, package_file_id))
+        dbCursor.execute(sqlCommand, (package_file_id))
         queryResult = dbCursor.fetchone()
 
         if queryResult != None: 
@@ -407,15 +407,14 @@ class fileInfo:
 
         '''If it isn't cached, run scans, else get file from database.'''
         if cached == -1:
-           if (scanOption == 'fossology'):
-            print "inside if condition";             
+           if (scanOption == 'fossology'):            
             '''Run fossology'''
             '''Fossology doesn't return an exit code of 0 so we must always catch the output.'''
             try:
                 fossOutput = subprocess.check_output([settings.FOSSOLOGY_PATH,
                                                     self.filePath])
             except Exception as e:
-                fossOutput = str(e.output)
+                fossOutput = str(e)
             '''Parse outputs'''
             (fileName, fossLicense) = output_parser.foss_parser(fossOutput)
             self.licenseInfoInFile.append(fossLicense)
