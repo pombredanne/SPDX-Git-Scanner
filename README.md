@@ -3,6 +3,7 @@ Retrieves a branch from Git and performs a scan on all files in the branch to pr
 
 #License
 Source Code: Apache 2.0
+Documentation: Creative Commons 4.0
 
 #Copyright
 Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
