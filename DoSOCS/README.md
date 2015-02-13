@@ -50,14 +50,15 @@ This will install <a href="https://github.com/socs-dev-env/DoSOCS">DoSOCS</a>, <
 
 Usage
 -----
-`./DoSPDX.py [options]`
+`import DoSPDX
+ DoSPDX.dospdx(option_dict)
 
-#####Options
+#####Keys
 
-- `--packagePath [Path to archive]` Allows user to specify which package to run DoSPDX against.
+- `packagePath': '[Path to archive]` Allows user to specify which package to run DoSPDX against.
   - Conditonaly optional, Required if used with `-s` or `--scan`
   - ***Example:*** `./DoSPDX.py -p archive.tar.bz2`
-- `-s` or `--scan` Runs a scan on the package specified in package path argument.
+- 'scan' : True | False ` Runs a scan on the package specified in package path argument.  True by default.
   - Conditonaly optional, Required if used with `-s` or `--scan`
   - ***Example:*** `./DoSPDX.py -p archive.tar.bz2 -s`
 - `--print [format]` Prints out SPDX document in specified format.
@@ -90,7 +91,7 @@ Usage
 - `--packageHomePage [HomePage]` Specifies URL for software pacakge homepage.
   - Optional
   - ***Example:*** `./DoSPDX.py --packageHomePage "http://www.apache.org/"`
-- `--pacakgeSourceInfo [Package Source Info]` Specifies source information of the pacakge.
+- `--packageSourceInfo [Package Source Info]` Specifies source information of the pacakge.
   - Optional
   - ***Example:*** `./DoSPDX.py --pacakgeSourceInfo "Package that is part of Yocto Build process."`
 - `--packageLicenseComments [Comments]` Allows for comments to be made about the license of a pacakge.
@@ -102,6 +103,9 @@ Usage
  
 
 
+
 Code Contributions
 ------------------
 All contributions to DoSOCS will be subject to review by the owner of the repo before being merged.
+
+== 
