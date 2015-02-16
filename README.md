@@ -5,7 +5,6 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 * Python 2.7
 * MySQL
 * FOSSology
-* Ninka
 * PHP
 
 #License
