@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import DoSPDX
 from dospdx_arghash import DospdxArgHash
 #argHash = { 'scanOption': 'fa', 
