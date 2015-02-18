@@ -62,7 +62,8 @@ Usage
   - ***Example:*** `dospdx({'scan': False})
 - `--print [format]` Prints out SPDX document in specified format.
   - Optional
-  - ***Example:*** `spdx({'output': 'TAG'})` or `spdx({'output': 'RDF')`
+  - ***Example:*** `spdx({'output': outchoices})
+  = ****Outchoices**** rdf json tag
 - `--documentComment [Document Comment]` Specifies SPDX document Comment section.
   - Optional 
   - ***Example:*** `./DoSPDX.py --documentComment "Scanned as part of the Yocto build process."`

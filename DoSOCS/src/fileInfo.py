@@ -417,6 +417,7 @@ class fileInfo:
                 fossOutput = str(e)
             '''Parse outputs'''
             (fileName, fossLicense) = output_parser.foss_parser(fossOutput)
+            # print "fossLicense: " + fossLicense                                  # Debug
             self.licenseInfoInFile.append(fossLicense)
             self.licenseComments = "#FOSSology "
             self.licenseComments += fossLicense
@@ -435,6 +436,7 @@ class fileInfo:
                                                     self.filePath])
             except Exception as e:
                 fossOutput = str(e.strerror)
+    #            print "Err " + fossOutput                                               debug
 
             '''Parse outputs'''
             (fileName, ninkaLicense) = output_parser.ninka_parser(ninkaOutput)
@@ -455,7 +457,8 @@ class fileInfo:
             fossLicense = fossLicense.upper().strip()
             ninkaLicense = ninkaLicense.upper().strip()
             match = output_parser.lic_compare(fossLicense, ninkaLicense)
-            
+    #        print "fossLicense: "                                                 debug
+
             if match and fossLicense != 'ERROR':
                 self.licenseInfoInFile.append(fossLicense)
             elif match and fossLicense == 'ERROR':

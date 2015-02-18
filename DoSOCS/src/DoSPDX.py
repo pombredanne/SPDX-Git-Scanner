@@ -137,7 +137,6 @@ def dospdx(zdict):
         sys.exit()
 
     if scan == True:
-	print scanOption
         spdxDoc.generateSPDXDoc(scanOption)
         spdxDoc.insertSPDX()
 
