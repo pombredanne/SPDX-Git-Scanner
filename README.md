@@ -9,6 +9,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 
 #License
 Source Code: Apache 2.0
+
 Documentation: Creative Commons 4.0
 
 #Copyright
