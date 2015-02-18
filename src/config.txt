@@ -1,11 +1,24 @@
+// Parm TmpDir - Directory to use for temporary pull down target branch
 TmpDir		= .\TMP
+
+// Parm SPDXOutput - Resulting SPDX file name
 SPDXOutput	= SPDXFile.txt
+
+// Parm CommitComment - Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
 CommitComment	= SPDX Generation %Y%m%d%H%M%S
+
+// Parm Verbose - Whether or not the script should print what it's doing
 Verbose		= True
 
-// +-----------------------------------------------------+
-// | Always set these values to CHANGE_ME before pushing |
-// +-----------------------------------------------------+
+// +---------------------------------------------------------+
+// | Always set the below values to CHANGE_ME before pushing |
+// +---------------------------------------------------------+
+
+// Parm User - User name for pushing the SPDX file. If not provided, script will prompt during push.
 //User		= CHANGE_ME
+
+// Parm Password - Password for the user pushing the SPDX file. If not provided, script will prompt during push.
 //Password	= CHANGE_ME
+
+// Parm Branch - Branch for which the script will generate SPDX document file
 //Branch 	= CHANGE_ME
