@@ -19,6 +19,7 @@ limitations under the License.
 '''Defines the file level information in an spdx object.'''
 import MySQLdb
 import settings
+import utilities;
 import hashlib
 import subprocess
 import sys
@@ -372,10 +373,7 @@ class fileInfo:
 
     def isCached(self):
         '''checks whether or not file is in database'''
-        with MySQLdb.connect(host=settings.database_host,
-                            user=settings.database_user,
-                            passwd=settings.database_pass,
-                            db=settings.database_name) as dbCursor:
+        with utilities.spdxDbConnector() as dbCursor:
             sqlCommand = """SELECT id
                             FROM package_files
                             WHERE file_checksum = %s"""
@@ -473,8 +471,5 @@ class fileInfo:
             self.licenseComments += " #Ninka "
             self.licenseComments += ninkaLicense
         else:
-            with MySQLdb.connect(host=settings.database_host,
-                                user=settings.database_user,
-                                passwd=settings.database_pass,
-                                db=settings.database_name) as dbCursor:
+            with utilities.spdxDbConnector() as dbCursor:
                 self.getFileInfo(cached, dbCursor)
