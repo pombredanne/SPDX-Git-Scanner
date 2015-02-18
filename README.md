@@ -8,6 +8,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 * FOSSology
 * PHP
 * Git
+* Python-Git
 
 #Installation
 1. Download SPDX-Git-Scanner master and unzip
