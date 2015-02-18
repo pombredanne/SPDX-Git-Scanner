@@ -110,7 +110,7 @@ def dospdx(zdict):
 #            spdxDocId = arg
 
     '''Validate package path'''
-    if scan and (packagePath == None or not os.path.isfile(packagePath)):
+    if cIsPathInvalid(scan, packagePath):
         raise Exception('Invalid Package path')
 
     '''Create spdx object'''
@@ -149,3 +149,7 @@ def dospdx(zdict):
 
 #if __name__ == "__main__":
 #main(sys.argv[1:])
+
+### Methods of Conditions ###
+def cIsPathInvalid(scan, packagePath):
+    return (scan and (packagePath == None or not os.path.isfile(packagePath)))
