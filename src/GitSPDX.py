@@ -85,7 +85,7 @@ def Main( config = fileConfig ):
         # Write SPDX Header
         bSPDXExisted    = os.path.isfile( vSPDXFileName_Absolute )
         vSPDXFile       = open( vSPDXFileName_Absolute, 'w' )
-        vSPDXFile.write( "Hi, I'm the header, generated on %s\n" % time.ctime() )
+        vSPDXFile.write( "Hi, I'm the header generated on %s\n" % time.ctime() )
 
         vCurrentOp      = "Processing files"
         DoPrint( vCurrentOp, bVerbose )
@@ -105,30 +105,33 @@ def Main( config = fileConfig ):
         DoPrint( vCurrentOp, bVerbose )
         vGitNtfc.add( vSPDXFileName_Relative )
 
-        vCurrentOp      = "Committing SPDX changes"
-        DoPrint( vCurrentOp, bVerbose )
-        vGitNtfc.commit( message=time.strftime( vCommitComment ) )
-
         vRepo = git.Repo( vTmpDir )
-        vAuthString = ""
-        if vUser:
-            vAuthString = vUser + "@"
-            if vPassword:
-                vAuthString = vPassword + vAuthString
+        if vRepo.is_dirty():
+            vCurrentOp      = "Committing SPDX changes"
+            DoPrint( vCurrentOp, bVerbose )
+            vGitNtfc.commit( message=time.strftime( vCommitComment ) )
         
-        vPushTarg   = vBranch
-        vCxnInfo    = re.findall( r"^(https?://)?(.*)", vPushTarg )
-        if vCxnInfo:
-            vProtocol, vURL = vCxnInfo[0]
-            vPushTarg = vProtocol + vAuthString + vURL
+            vAuthString = ""
+            if vUser:
+                vAuthString = vUser + "@"
+                if vPassword:
+                    vAuthString = vPassword + vAuthString
+            
+            vPushTarg   = vBranch
+            vCxnInfo    = re.findall( r"^(https?://)?(.*)", vPushTarg )
+            if vCxnInfo:
+                vProtocol, vURL = vCxnInfo[0]
+                vPushTarg = vProtocol + vAuthString + vURL
 
-        vCurrentOp      = "Connecting to remote repository"
-        DoPrint( vCurrentOp, bVerbose )
-        vRemote = git.remote.Remote( vRepo, vPushTarg )
+            vCurrentOp      = "Connecting to remote repository"
+            DoPrint( vCurrentOp, bVerbose )
+            vRemote = git.remote.Remote( vRepo, vPushTarg )
 
-        vCurrentOp      = "Pushing SPDX file to remote repository"
-        DoPrint( vCurrentOp, bVerbose )
-        vRemote.push()
+            vCurrentOp      = "Pushing SPDX file to remote repository"
+            DoPrint( vCurrentOp, bVerbose )
+            vRemote.push()
+        else:
+            DoPrint( "SPDX Document is already up to date", bVerbose )
         
         # Delete local directory
         DelDir( vTmpDir )
