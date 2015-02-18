@@ -20,7 +20,8 @@ limitations under the License.
 Paths to scanners
 '''
 NINKA_PATH = "/usr/share/ninka/ninka.pl"
-FOSSOLOGY_PATH = "/usr/lib/fossology/agents/nomos"
+#FOSSOLOGY_PATH = "/usr/lib/fossology/agents/nomos"
+FOSSOLOGY_PATH = "/usr/share/fossology/nomos/agent/nomos"
 
 '''
 Database connection settings
