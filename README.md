@@ -16,6 +16,9 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 4. Configure Git config in /src/config.txt
 5. Configure doSOCS config in /doSOCS/src/settings.py
 
+#Usage
+TODO
+
 #License
 Source Code: Apache 2.0
 
