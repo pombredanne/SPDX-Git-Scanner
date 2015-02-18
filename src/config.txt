@@ -1,0 +1,11 @@
+TmpDir		= .\TMP
+SPDXOutput	= SPDXFile.txt
+CommitComment	= SPDX Generation %Y%m%d%H%M%S
+Verbose		= True
+
+// +-----------------------------------------------------+
+// | Always set these values to CHANGE_ME before pushing |
+// +-----------------------------------------------------+
+//User		= CHANGE_ME
+//Password	= CHANGE_ME
+//Branch 	= CHANGE_ME
