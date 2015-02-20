@@ -14,6 +14,9 @@ Parameter list:
 NAME: TmpDir
 DESC: Directory to use for temporary pull down target branch
 
+NAME: TmpZip
+DESC: Name to use for temporary package created from branch
+
 NAME: SPDXOutput
 DESC: Resulting SPDX file name
 

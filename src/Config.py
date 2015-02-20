@@ -3,11 +3,15 @@ import os
 class Config:
     def __init__( self ):
         self._params = {}
-        self.Set( 'Branch'          , None                      )
-        #self.Set( 'SPDXVers'        , 2.0                       )
-        self.Set( 'TmpDir'          , os.path.join('.','TMP')   )
-        self.Set( 'Verbose'         , True                      )
-        
+
+        self.Set( 'TmpDir'          , os.path.join('.','TMP')           )
+        self.Set( 'TmpZip'          , "                                 )
+        self.Set( 'Verbose'         , True                              )
+        self.Set( 'SPDXOutput'      , 'SPDXFile.txt'                    )
+        self.Set( 'CommitComment'   , 'SPDX Generation %Y%m%d%H%M%S'    )
+        self.Set( 'User'            , None                              )
+        self.Set( 'Password'        , None                              )
+        self.Set( 'Branch'          , None                              )
 
     def Parse( self, paramList ):
         for param in paramList:

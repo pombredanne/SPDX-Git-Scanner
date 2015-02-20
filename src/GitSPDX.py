@@ -4,6 +4,7 @@ import os
 import shutil
 import time
 import re
+import zipfile
 
 # Git API imports
 import git.cmd
@@ -41,6 +42,8 @@ def Main( config = fileConfig ):
     bVerbose                = config.GetAsBool("Verbose")
     vBranch                 = config.Get("Branch")
     vTmpDir                 = config.Get("TmpDir")
+    vTmpZip_Relative        = config.Get("TmpZip")
+    vTmpZip_Absolute        = os.path.join( vTmpDir, vTmpZip_Relative )
     vSPDXFileName_Relative  = config.Get("SPDXOutput")
     vSPDXFileName_Absolute  = os.path.join( vTmpDir, vSPDXFileName_Relative )
     vCommitComment          = config.Get("CommitComment")
@@ -82,23 +85,37 @@ def Main( config = fileConfig ):
         DoPrint( vCurrentOp, bVerbose )
         vFileList       = vGitNtfc.ls_files().split("\n")
 
+        # Create zip file
+        vCurrentOp      = "Creating package file"
+        DoPrint( vCurrentOp, bVerbose )
+        vZipFile        = zipfile.ZipFile( vTmpZip_Absolute , 'w' )
+
         # Write SPDX Header
         bSPDXExisted    = os.path.isfile( vSPDXFileName_Absolute )
-        vSPDXFile       = open( vSPDXFileName_Absolute, 'w' )
-        vSPDXFile.write( "Hi, I'm the header generated on %s\n" % time.ctime() )
+        vSPDXFile       = open( vSPDXFileName_Absolute, 'w' )                       # THIS WILL BE REMOVED
+        vSPDXFile.write( "Hi, I'm the header generated on %s\n" % time.ctime() )    # THIS WILL BE REMOVED
 
+
+        # Add files to package
         vCurrentOp      = "Processing files"
         DoPrint( vCurrentOp, bVerbose )
         for vFile in vFileList:
-            vSPDXFile.write( vFile + "\n" )
-            # if not dosocs.iscached( vFile ):
-            #    Give to dosocs
-            # read from dosocs DB
-            # write SPDX info
+            vSPDXFile.write( vFile + "\n" )                                         # THIS WILL BE REMOVED
+            vZipFile.write( os.path.join( vTmpDir, vFile ), vFile )
 
         # Write SPDX tail
-        vSPDXFile.write( "And I'm the tail\n" )
-        vSPDXFile.close()
+        vSPDXFile.write( "And I'm the tail\n" )                                     # THIS WILL BE REMOVED
+        vSPDXFile.close()                                                           # THIS WILL BE REMOVED
+        vZipFile.close()
+
+        #
+        # THIS IS WHERE I SHOULD BE DOING DOSOCS
+        #
+
+        # Remove the zip file
+        vCurrentOp      = "Removing package file"
+        DoPrint( vCurrentOp, bVerbose )
+        os.remove( vTmpZip_Absolute )
         
         # Push SPDX to repository
         vCurrentOp      = "Adding SPDX file to local branch"
