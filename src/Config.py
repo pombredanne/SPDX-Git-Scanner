@@ -5,7 +5,7 @@ class Config:
         self._params = {}
 
         self.Set( 'TmpDir'          , os.path.join('.','TMP')           )
-        self.Set( 'TmpZip'          , "                                 )
+        self.Set( 'TmpZip'          , 'SPDXPackagedFiles.zip'           )
         self.Set( 'Verbose'         , True                              )
         self.Set( 'SPDXOutput'      , 'SPDXFile.txt'                    )
         self.Set( 'CommitComment'   , 'SPDX Generation %Y%m%d%H%M%S'    )
