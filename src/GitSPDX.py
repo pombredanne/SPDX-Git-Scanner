@@ -31,9 +31,6 @@ def MakeDirTree( s ):
 def DoPrint( line, bVerbose ):
     if bVerbose:
         print( line )
-
-def DBG( line ):
-    DoPrint( "*** DBG: " + line, True )
     
 def Main( config = fileConfig ):
 
@@ -91,14 +88,14 @@ def Main( config = fileConfig ):
         vZipFile        = zipfile.ZipFile( vTmpZip_Absolute , 'w' )
 
         # Write SPDX Header
-        bSPDXExisted    = os.path.isfile( vSPDXFileName_Absolute )
         vSPDXFile       = open( vSPDXFileName_Absolute, 'w' )                       # THIS WILL BE REMOVED
         vSPDXFile.write( "Hi, I'm the header generated on %s\n" % time.ctime() )    # THIS WILL BE REMOVED
-
 
         # Add files to package
         vCurrentOp      = "Processing files"
         DoPrint( vCurrentOp, bVerbose )
+        if vSPDXFileName_Relative in vFileList: # Don't process the SPDX file
+            vFileList.remove( vSPDXFileName_Relative )
         for vFile in vFileList:
             vSPDXFile.write( vFile + "\n" )                                         # THIS WILL BE REMOVED
             vZipFile.write( os.path.join( vTmpDir, vFile ), vFile )
@@ -157,6 +154,10 @@ def Main( config = fileConfig ):
         print( 'Error during "%s". Here\'s what was given to stderr:' % vCurrentOp )
         print( exc.stderr.decode('ascii') )
         print( '*'*30 )
+    except Exception as exc:
+        print( '*'*30 )
+        print( 'Error during "%s". Here\'s the exception that was raised:' )
+        raise exc
 
 if __name__ == '__main__':
     args = sys.argv[1:]
