@@ -1,5 +1,5 @@
 // Parm TmpDir - Directory to use for temporary pull down target branch
-TmpDir		= .\TMP
+TmpDir		= TMP
 
 // Parm TmpZip - Name to use for temporary package created from branch
 TmpZip		= SPDXPackagedFiles.zip
