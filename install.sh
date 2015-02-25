@@ -1,5 +1,5 @@
 #!/bin/bash
-#Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
+#Copyright Â© 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
 #Setup User Name and Password for MySql
 read -p "Enter your MySQL Username:" u
 stty -echo 
@@ -8,7 +8,7 @@ stty echo
 #Clone Repos
 git clone https://github.com/SPDX-Git/SPDX-Git-Scanner
 git clone https://github.com/socs-dev-env/SOCSDatabase
-git clone https://github.com/SPDX-Git/DoSOCS
+git clone https://github.com/socs-dev-env/DoSOCS
 
 #Install Database
 echo "Install SPDX Database..."
