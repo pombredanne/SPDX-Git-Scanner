@@ -127,9 +127,10 @@ def Main( config = fileConfig ):
         
             vAuthString = ""
             if vUser:
-                vAuthString = vUser + "@"
+                vAuthString = "@"
                 if vPassword:
-                    vAuthString = vPassword + vAuthString
+                    vAuthString = ':' + vPassword + vAuthString
+                vAuthString = vUser + vAuthString
             
             vPushTarg   = vBranch
             vCxnInfo    = re.findall( r"^(https?://)?(.*)", vPushTarg )
