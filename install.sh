@@ -5,6 +5,10 @@ read -p "Enter your MySQL Username:" u
 stty -echo 
 read -p "Enter your MySQL Password: " p; echo 
 stty echo
+
+read -p "Enter your Git Global Username (Enter to skip):" guser
+read -p "Enter your Git Global Email (Enter to skip):" gemail
+
 #Clone Repos
 git clone https://github.com/SPDX-Git/SPDX-Git-Scanner
 git clone https://github.com/socs-dev-env/SOCSDatabase
@@ -16,12 +20,10 @@ mysql --user=$u --password=$p < SOCSDatabase/SQL/SPDX.sql
 #Exit mySql
 
 #Setup Git Globals (Optional)
-read -p "Enter your Git Global Username (Enter to skip):" guser
-read -p "Enter your Git Global Email (Enter to skip):" gemail
 if [ -z "$guser" ]
 git config --global user.name guser
 fi
-if [ -z "$gemail" ];
+if [ -z "$gemail" ]
 git config --global user.email gemail
 fi
 
