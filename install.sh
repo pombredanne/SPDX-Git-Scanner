@@ -20,10 +20,10 @@ mysql --user=$u --password=$p < SOCSDatabase/SQL/SPDX.sql
 #Exit mySql
 
 #Setup Git Globals (Optional)
-if [ -z "$guser" ]
+if [ -z "$guser" ]; then
 git config --global user.name guser
 fi
-if [ -z "$gemail" ]
+if [ -z "$gemail" ]; then
 git config --global user.email gemail
 fi
 
