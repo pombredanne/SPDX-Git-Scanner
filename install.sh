@@ -6,8 +6,8 @@ stty -echo
 read -p "Enter your MySQL Password: " p; echo 
 stty echo
 
-read -p "Enter your Git Global Username (Enter to skip):" guser
-read -p "Enter your Git Global Email (Enter to skip):" gemail
+read -p "Enter your Git Global Username (Enter to skip): " guser
+read -p "Enter your Git Global Email (Enter to skip): " gemail
 
 #Clone Repos
 git clone https://github.com/SPDX-Git/SPDX-Git-Scanner
