@@ -15,6 +15,16 @@ echo "Install SPDX Database..."
 mysql --user=$u --password=$p < SOCSDatabase/SQL/SPDX.sql
 #Exit mySql
 
+#Setup Git Globals (Optional)
+read -p "Enter your Git Global Username (Enter to skip):" guser
+read -p "Enter your Git Global Email (Enter to skip):" gemail
+if [ -z "$guser" ]
+git config --global user.name guser
+fi
+if [ -z "$gemail" ];
+git config --global user.email gemail
+fi
+
 #Delete Database Repo
 echo "Setting up files..."
 cp -r DoSOCS SPDX-Git-Scanner
