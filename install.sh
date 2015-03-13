@@ -27,7 +27,7 @@ if [[ $gemail = *[!\ ]* ]]; then
 git config --global user.email $gemail
 fi
 
-#Delete Database Repo
+#Delete Database Repo and setup files
 echo "Setting up files..."
 cp -r DoSOCS/src/*.* SPDX-Git-Scanner/src
 chmod 755 SPDX-Git-Scanner/src/*.py
