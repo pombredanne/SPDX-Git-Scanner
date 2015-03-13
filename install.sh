@@ -1,7 +1,7 @@
 #!/bin/bash
 #Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
 #Setup User Name and Password for MySql
-read -p "Enter your MySQL Username:" u
+read -p "Enter your MySQL Username: " u
 stty -echo 
 read -p "Enter your MySQL Password: " p; echo 
 stty echo
