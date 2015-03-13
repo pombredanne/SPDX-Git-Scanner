@@ -12,6 +12,9 @@ import git.remote
 import git
 from git.exc import GitCommandError
 
+# DoSOCS import
+import DoSPDX
+
 fileConfig = Config.Config()
 fileConfig.ParseFile( 'config.txt' )
 
@@ -49,7 +52,7 @@ def Main( config = fileConfig ):
 
     vCurrentOp              = ""
 
-    vDoSOCSSettingsPath     = os.path.join("..","DoSOCS","src")
+    vDoSOCSSettingsPath     = os.path.join(".")
     vDoSOCSSettingsFile     = os.path.join(vDoSOCSSettingsPath,"settings.py")
     vDoSOCSSettingsFile_TMP = os.path.join(vDoSOCSSettingsPath,"_settings.py")
 
@@ -111,27 +114,24 @@ def Main( config = fileConfig ):
         DoPrint( vCurrentOp, bVerbose )
         vZipFile        = zipfile.ZipFile( vTmpZip_Absolute , 'w' )
 
-        # Write SPDX Header
-        vSPDXFile       = open( vSPDXFileName_Absolute, 'w' )                       # THIS WILL BE REMOVED
-        vSPDXFile.write( "Hi, I'm the header generated on %s\n" % time.ctime() )    # THIS WILL BE REMOVED
-
         # Add files to package
         vCurrentOp      = "Processing files"
         DoPrint( vCurrentOp, bVerbose )
         if vSPDXFileName_Relative in vFileList: # Don't process the SPDX file
             vFileList.remove( vSPDXFileName_Relative )
         for vFile in vFileList:
-            vSPDXFile.write( vFile + "\n" )                                         # THIS WILL BE REMOVED
             vZipFile.write( os.path.join( vTmpDir, vFile ), vFile )
 
         # Write SPDX tail
-        vSPDXFile.write( "And I'm the tail\n" )                                     # THIS WILL BE REMOVED
-        vSPDXFile.close()                                                           # THIS WILL BE REMOVED
         vZipFile.close()
 
-        #
-        # THIS IS WHERE I SHOULD BE DOING DOSOCS
-        #
+	vCurrentOp	= "Calling DoSPDX"
+	DoPrint( vCurrentOp, bVerbose )
+	DoSPDX.main( 	[ '-p ' + vTmpZip_Absolute
+		   	, '--print JSON'
+			, '--scan'
+			, '--scanOption Fossology'
+			]) 
 
         # Remove the zip file
         vCurrentOp      = "Removing package file"
