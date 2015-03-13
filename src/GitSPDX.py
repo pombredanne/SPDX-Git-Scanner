@@ -127,10 +127,10 @@ def Main( config = fileConfig ):
 
 	vCurrentOp	= "Calling DoSPDX"
 	DoPrint( vCurrentOp, bVerbose )
-	DoSPDX.main( 	[ '-p ' + vTmpZip_Absolute
-		   	, '--print JSON'
+	DoSPDX.main( 	[ '-p', vTmpZip_Absolute
+		   	, '--print', 'JSON'
 			, '--scan'
-			, '--scanOption Fossology'
+			, '--scanOption', 'Fossology'
 			]) 
 
         # Remove the zip file
