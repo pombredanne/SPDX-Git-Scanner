@@ -49,13 +49,37 @@ def Main( config = fileConfig ):
 
     vCurrentOp              = ""
 
+    vDoSOCSSettingsPath     = os.path.join("..","DoSOCS","src")
+    vDoSOCSSettingsFile     = os.path.join(vDoSOCSSettingsPath,"settings.py")
+    vDoSOCSSettingsFile_TMP = os.path.join(vDoSOCSSettingsPath,"_settings.py")
+
+    vDoSOCSParms            = config.GetDoSOCSParms()
+
+    bMovedSettingsFile      = False
+
     try:
-        
+
+        # Add the desired parameters to the DoSOCS settings file
+        vCurrentOp      = "Backing up DoSOCS settings file"
+        DoPrint( vCurrentOp, bVerbose )
+        if os.path.isfile( vDoSOCSSettingsFile_TMP ):
+            os.remove( vDoSOCSSettingsFile_TMP )
+        shutil.copyfile( vDoSOCSSettingsFile, vDoSOCSSettingsFile_TMP )
+        bMovedSettingsFile = True
+
+        vCurrentOp      = "Adding parameters to DoSOCS settings file"
+        DoPrint( vCurrentOp, bVerbose )
+        file = open( vDoSOCSSettingsFile, 'a' )
+        for parm in vDoSOCSParms.keys():
+            file.write( '\n' + parm + '=' + vDoSOCSParms[parm] )
+        file.close()
+
         # Set up temporary directory
         vCurrentOp = "Deleting old temporary directory if present"
         DoPrint( vCurrentOp, bVerbose )
         DelDir( vTmpDir )
         
+        # Sleep to make sure the directory is fully deleted before writing it
         time.sleep(1)
         
         vCurrentOp      = "Making temporary directory"
@@ -149,7 +173,10 @@ def Main( config = fileConfig ):
             DoPrint( "SPDX Document is already up to date", bVerbose )
         
         # Delete local directory
+        vCurrentOp          = "Deleting temporary directory"
+        DoPrint( vCurrentOp, bVerbose )
         DelDir( vTmpDir )
+
     except GitCommandError as exc:
         print( '*'*30 )
         print( 'Error during "%s". Here\'s what was given to stderr:' % vCurrentOp )
@@ -157,8 +184,17 @@ def Main( config = fileConfig ):
         print( '*'*30 )
     except Exception as exc:
         print( '*'*30 )
-        print( 'Error during "%s". Here\'s the exception that was raised:' )
+        print( 'Error during "%s". Here\'s the exception that was raised:' % vCurrentOp )
         raise exc
+    finally:
+        # Restore the DoSOCS settings file
+        if bMovedSettingsFile:
+            try:
+                vCurrentOp      = "Replacing original DoSOCS settings file"
+                DoPrint( vCurrentOp, bVerbose )
+                shutil.copyfile( vDoSOCSSettingsFile_TMP, vDoSOCSSettingsFile )
+            except:
+                pass
 
 if __name__ == '__main__':
     args = sys.argv[1:]

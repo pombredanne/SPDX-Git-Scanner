@@ -9,6 +9,8 @@ Adding them via config.txt (located in the same directory as the main script) is
 
 Command-line parameters have precedence over config parameters, which in turn have precedence over the default values.
 
+Parameters of the form DoSOCS.<param> will override <param> in the DoSOCS config file.
+
 Parameter list:
 
 NAME: TmpDir
@@ -34,4 +36,19 @@ DESC: Password for the user pushing the SPDX file. If not provided, script will 
 
 NAME: Branch
 DESC: Branch for which the script will generate SPDX document file
+
+NAME: DoSOCS.database_user
+DESC: Overrides DoSOCS' database_user parameter
+
+NAME: DoSOCS.database_pass
+DESC: Overrides DoSOCS' database_pass parameter
+
+NAME: DoSOCS.database_host
+DESC: Overrides DoSOCS' database_host parameter
+
+NAME: DoSOCS.database_port
+DESC: Overrides DoSOCS' database_port parameter
+
+NAME: DoSOCS.database_name
+DESC: Overrides DoSOCS' database_name parameter
 

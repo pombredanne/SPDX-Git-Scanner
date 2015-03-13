@@ -4,14 +4,19 @@ class Config:
     def __init__( self ):
         self._params = {}
 
-        self.Set( 'TmpDir'          , os.path.join('.','TMP')           )
-        self.Set( 'TmpZip'          , 'SPDXPackagedFiles.zip'           )
-        self.Set( 'Verbose'         , True                              )
-        self.Set( 'SPDXOutput'      , 'SPDXFile.txt'                    )
-        self.Set( 'CommitComment'   , 'SPDX Generation %Y%m%d%H%M%S'    )
-        self.Set( 'User'            , None                              )
-        self.Set( 'Password'        , None                              )
-        self.Set( 'Branch'          , None                              )
+        self.Set( 'TmpDir'                  , os.path.join('.','TMP')           )
+        self.Set( 'TmpZip'                  , 'SPDXPackagedFiles.zip'           )
+        self.Set( 'Verbose'                 , True                              )
+        self.Set( 'SPDXOutput'              , 'SPDXFile.txt'                    )
+        self.Set( 'CommitComment'           , 'SPDX Generation %Y%m%d%H%M%S'    )
+        self.Set( 'User'                    , None                              )
+        self.Set( 'Password'                , None                              )
+        self.Set( 'Branch'                  , None                              )
+        self.Set( 'DoSOCS.database_user'    , None                              )
+        self.Set( 'DoSOCS.database_pass'    , None                              )
+        self.Set( 'DoSOCS.database_host'    , None                              )
+        self.Set( 'DoSOCS.database_port'    , None                              )
+        self.Set( 'DoSOCS.database_name'    , None                              )
 
     def Parse( self, paramList ):
         for param in paramList:
@@ -44,6 +49,16 @@ class Config:
         if param in self._params.keys():
             return self._params[ param ]
         return None
+
+    def GetDoSOCSParms( self ):
+        prefix = "dosocs."
+        params = {}
+        for param in self._params.keys():
+            if param.startswith( prefix ):
+                ds_param = param.replace(prefix,'',1)
+                params[ ds_param ] = self._params[ param ]
+        return params
+                
 
     def GetAsNum( self, param ):
         value = self.Get(param)
