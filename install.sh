@@ -29,7 +29,7 @@ fi
 
 #Delete Database Repo
 echo "Setting up files..."
-cp -r DoSOCS SPDX-Git-Scanner
+cp -r DoSOCS SPDX-Git-Scanner/src
 chmod 755 SPDX-Git-Scanner/src/*.py
 chmod 755 SPDX-Git-Scanner/DoSOCS/src/*.py
 sudo rm DoSOCS -R
