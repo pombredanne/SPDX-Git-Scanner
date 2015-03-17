@@ -3,6 +3,7 @@ import os
 class Config:
     def __init__( self ):
         self._params = {}
+        self._dosocs_params = {}
 
         self.Set( 'TmpDir'                  , os.path.join('.','TMP')           )
         self.Set( 'TmpZip'                  , 'SPDXPackagedFiles.zip'           )
@@ -51,14 +52,7 @@ class Config:
         return None
 
     def GetDoSOCSParms( self ):
-        prefix = "dosocs."
-        params = {}
-        for param in self._params.keys():
-            if param.startswith( prefix ):
-                ds_param = param.replace(prefix,'',1)
-                params[ ds_param ] = self._params[ param ]
-        return params
-                
+        return self._dosocs_params
 
     def GetAsNum( self, param ):
         value = self.Get(param)
@@ -73,10 +67,15 @@ class Config:
     def GetAsBool( self, param ):
         value = self.Get(param)
         return value != None and value.lower() == 'true'
+
+    def SetDoSOCS( self, param, value ):
+        if not len(param):
+            return
+        self._dosocs_params[param] = value
         
     def Set( self, param, value ):
-        param = param.strip().lower()
-
+        
+        param = param.strip()
         if not len(param):
             return
 
@@ -84,8 +83,14 @@ class Config:
             value = ''
         elif not type(value) == str:
             value = repr(value)
-            
         value = value.strip()
+
+        l_param = param.lower()
+        if l_param.startswith("dosocs."):
+            self.SetDoSOCS( param[7:], value )
+            return
+        param = l_param
+
         self._params[ param ] = value
 
     def PrintConfig( self ):
@@ -93,9 +98,14 @@ class Config:
         for key in self._params.keys():
             if len(key) > longest:
                 longest = len(key)
+        for key in self._dosocs_params.keys():
+            if len(key) > longest:
+                longest = len(key)
         fmt = "%-" + repr(longest) + "s = %s"
         for key in self._params.keys():
             print( fmt % (key, self._params[key]) )
+        for key in self._dosocs_params.keys():
+            print( fmt % (key, self._dosocs_params[key]) )
 
 def __TestConfig():
     c = Config()

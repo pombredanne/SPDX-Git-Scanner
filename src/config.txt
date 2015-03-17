@@ -40,3 +40,6 @@ Verbose			= True
 
 // Parm DoSOCS.database_name - Overrides DoSOCS' database_name parameter
 //DoSOCS.database_name	= CHANGE_ME
+
+// Parm DoSOCS.FOSSOLOGY_PATH - Overrides DoSOCS' FOSSOLOGY_PATH parameter
+//DoSOCS.FOSSOLOGY_PATH = CHANGE_ME

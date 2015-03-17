@@ -74,7 +74,7 @@ def Main( config = fileConfig ):
         DoPrint( vCurrentOp, bVerbose )
         file = open( vDoSOCSSettingsFile, 'a' )
         for parm in vDoSOCSParms.keys():
-            file.write( '\n' + parm + '=' + vDoSOCSParms[parm] )
+            file.write( "\n%s = '%s'" % (parm,vDoSOCSParms[parm]) )
         file.close()
 
         # Set up temporary directory
@@ -125,13 +125,13 @@ def Main( config = fileConfig ):
         # Write SPDX tail
         vZipFile.close()
 
-	vCurrentOp	= "Calling DoSPDX"
-	DoPrint( vCurrentOp, bVerbose )
-	DoSPDX.main( 	[ '-p', vTmpZip_Absolute
-		   	, '--print', 'JSON'
-			, '--scan'
-			, '--scanOption', 'Fossology'
-			]) 
+        vCurrentOp	= "Calling DoSPDX"
+        DoPrint( vCurrentOp, bVerbose )
+        DoSPDX.main([ '-p', vTmpZip_Absolute
+                    , '--print', 'JSON'
+                    , '--scan'
+                    , '--scanOption', 'Fossology'
+                    ]) 
 
         # Remove the zip file
         vCurrentOp      = "Removing package file"
@@ -192,7 +192,7 @@ def Main( config = fileConfig ):
             try:
                 vCurrentOp      = "Replacing original DoSOCS settings file"
                 DoPrint( vCurrentOp, bVerbose )
-                shutil.copyfile( vDoSOCSSettingsFile_TMP, vDoSOCSSettingsFile )
+                #shutil.copyfile( vDoSOCSSettingsFile_TMP, vDoSOCSSettingsFile )
             except:
                 pass
 
