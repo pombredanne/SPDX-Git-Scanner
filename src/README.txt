@@ -9,7 +9,7 @@ Adding them via config.txt (located in the same directory as the main script) is
 
 Command-line parameters have precedence over config parameters, which in turn have precedence over the default values.
 
-Parameters of the form DoSOCS.<param> will override <param> in the DoSOCS config file.
+Parameters of the form DoSOCS.<param> will override <param> in the DoSOCS config file. Any DoSOCS parameter can be added this way, but the result will be a string variable.
 
 Parameter list:
 
@@ -51,4 +51,7 @@ DESC: Overrides DoSOCS' database_port parameter
 
 NAME: DoSOCS.database_name
 DESC: Overrides DoSOCS' database_name parameter
+
+NAME: DoSOCS.FOSSOLOGY_PATH
+DESC: Overrides DoSOCS' FOSSOLOGY_PATH parameter
 
