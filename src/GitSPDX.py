@@ -43,7 +43,8 @@ def Main( config = fileConfig ):
     vTmpDir                 = config.Get("TmpDir")
     vTmpZip_Relative        = config.Get("TmpZip")
     vTmpZip_Absolute        = os.path.join( vTmpDir, vTmpZip_Relative )
-    vSPDXFileName_Relative  = config.Get("SPDXOutput")
+    vPrintType              = config.Get("PrintType")
+    vSPDXFileName_Relative  = config.Get("SPDXOutputBase") + '.' + vPrintType.lower()
     vSPDXFileName_Absolute  = os.path.join( vTmpDir, vSPDXFileName_Relative )
     vCommitComment          = config.Get("CommitComment")
     vUser                   = config.Get("User")
@@ -128,10 +129,11 @@ def Main( config = fileConfig ):
         DoPrint( vCurrentOp, bVerbose )
         vProcParms = [ 'python', 'DoSPDX.py'
                      , '-p', vTmpZip_Absolute
-                     , '--print', 'JSON'
+                     , '--print', vPrintType
                      , '--scan'
                      , '--scanOption', 'fossology'
                      ]
+
         spdxProc = subprocess.Popen( vProcParms
                                    , stdout=subprocess.PIPE
                                    , stderr=subprocess.PIPE
