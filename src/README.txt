@@ -19,8 +19,11 @@ DESC: Directory to use for temporary pull down target branch
 NAME: TmpZip
 DESC: Name to use for temporary package created from branch
 
-NAME: SPDXOutput
-DESC: Resulting SPDX file name
+NAME: PrintType
+DESC: Output type of SPDX file (currently JSON, RDF, and TAG are supported)
+
+NAME: SPDXOutputBase
+DESC: Resulting SPDX file base name. PrintType will be appended
 
 NAME: CommitComment
 DESC: Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
@@ -54,4 +57,3 @@ DESC: Overrides DoSOCS' database_name parameter
 
 NAME: DoSOCS.FOSSOLOGY_PATH
 DESC: Overrides DoSOCS' FOSSOLOGY_PATH parameter
-

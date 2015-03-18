@@ -4,8 +4,11 @@ TmpDir			= TMP
 // Parm TmpZip - Name to use for temporary package created from branch
 TmpZip			= SPDXPackagedFiles.zip
 
-// Parm SPDXOutput - Resulting SPDX file name
-SPDXOutput		= SPDXFile.txt
+// Parm PrintType - Output type of SPDX file (currently JSON, RDF, and TAG are supported)
+PrintType		= JSON
+
+// Parm SPDXOutputBase - Resulting SPDX file base name. PrintType will be appended
+SPDXOutputBase		= SPDXFile
 
 // Parm CommitComment - Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
 CommitComment		= SPDX Generation %Y%m%d%H%M%S
