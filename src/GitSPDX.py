@@ -126,7 +126,8 @@ def Main( config = fileConfig ):
 
         vCurrentOp	= "Calling DoSPDX"
         DoPrint( vCurrentOp, bVerbose )
-        vProcParms = [ '-p', vTmpZip_Absolute
+        vProcParms = [ 'python', 'DoSPDX.py'
+                     , '-p', vTmpZip_Absolute
                      , '--print', 'JSON'
                      , '--scan'
                      , '--scanOption', 'Fossology'
