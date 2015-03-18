@@ -130,7 +130,7 @@ def Main( config = fileConfig ):
                      , '-p', vTmpZip_Absolute
                      , '--print', 'JSON'
                      , '--scan'
-                     , '--scanOption', 'Fossology'
+                     , '--scanOption', 'fossology'
                      ]
         spdxProc = subprocess.Popen( vProcParms
                                    , stdout=subprocess.PIPE
