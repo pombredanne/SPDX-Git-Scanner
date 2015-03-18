@@ -12,8 +12,7 @@ import git.remote
 import git
 from git.exc import GitCommandError
 
-# DoSOCS import
-import DoSPDX
+import subprocess
 
 fileConfig = Config.Config()
 fileConfig.ParseFile( 'config.txt' )
@@ -127,11 +126,31 @@ def Main( config = fileConfig ):
 
         vCurrentOp	= "Calling DoSPDX"
         DoPrint( vCurrentOp, bVerbose )
-        DoSPDX.main([ '-p', vTmpZip_Absolute
-                    , '--print', 'JSON'
-                    , '--scan'
-                    , '--scanOption', 'Fossology'
-                    ]) 
+        vProcParms = [ '-p', vTmpZip_Absolute
+                     , '--print', 'JSON'
+                     , '--scan'
+                     , '--scanOption', 'Fossology'
+                     ]
+        spdxProc = subprocess.Popen( vProcParms
+                                   , stdout=subprocess.PIPE
+                                   , stderr=subprocess.PIPE
+                                   )
+
+        (vStdOut, vStdErr) = spdxProc.communicate()
+        vStdOut = vStdOut.decode("utf-8").replace("\r\n","\n")
+        vStdErr = vStdErr.decode("utf-8").replace("\r\n","\n")
+        vReturnCode = spdxProc.returncode
+
+        if len(vStdErr):
+            raise Exception(vStdErr)
+        if vReturnCode != 0:
+            raise Exception("Non-zero return code from DoSOCS")
+        if not len(vStdOut):
+            raise Exception("No result from DoSOCS")
+
+        vSPDXFile = open( vSPDXFileName_Absolute, 'w' )
+        vSPDXFile.write( vStdOut )
+        vSPDXFile.close()
 
         # Remove the zip file
         vCurrentOp      = "Removing package file"
@@ -190,9 +209,7 @@ def Main( config = fileConfig ):
         # Restore the DoSOCS settings file
         if bMovedSettingsFile:
             try:
-                vCurrentOp      = "Replacing original DoSOCS settings file"
-                DoPrint( vCurrentOp, bVerbose )
-                #shutil.copyfile( vDoSOCSSettingsFile_TMP, vDoSOCSSettingsFile )
+                shutil.copyfile( vDoSOCSSettingsFile_TMP, vDoSOCSSettingsFile )
             except:
                 pass
 
