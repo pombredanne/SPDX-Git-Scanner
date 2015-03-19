@@ -12,8 +12,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 
 #Installation
 1. Download and run ./install.sh
-4. Configure Git config in SPDX-Git-Scanner/src/config.txt
-5. Configure doSOCS config in SPDX-Git-Scanner/doSOCS/src/settings.py
+2. Configure Git config in SPDX-Git-Scanner/src/config.txt
 
 #Usage
 [Usage information for running SPDX Git Scanner](https://github.com/SPDX-Git/SPDX-Git-Scanner/wiki/Running-GitSPDX)
