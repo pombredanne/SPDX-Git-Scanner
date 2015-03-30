@@ -28,8 +28,7 @@ class ConfigTestSuite(unittest.TestSuite):
 				c = Config()
 				c.Set("Value", "X")
 				self.assertTrue(c.HasParm("Value"))
-###############################################################################
-###############################################################################
+				
 		class MthdHasParmWithNothingReturnsFalseTestCase(unittest.TestCase):
 			def runTest(self):
 				c = Config()
@@ -43,8 +42,20 @@ class ConfigTestSuite(unittest.TestSuite):
 ###############################################################################
 ###############################################################################
 	class CfgMthdGetTestSuite(unittest.TestSuite):
+		class MthdGetReturnsValIfExistsTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", "roflcopter")
+				self.assertEqual(c.Get("Value"), "roflcopter")
+		class MthdGetReturnsNoneIfNotExistsTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				self.assertEqual(c.Get("NotExistsss"), None)
 		def suite(self):
-			pass
+			cases = self.__class__()
+			cases.addTest(cases.MthdGetReturnsValIfExistsTestCase())
+			cases.addTest(cases.MthdGetReturnsNoneIfNotExistsTestCase())
+			return cases
 ###############################################################################
 ###############################################################################
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
@@ -116,8 +127,16 @@ class ConfigTestSuite(unittest.TestSuite):
 ###############################################################################
 ###############################################################################
 	class CfgMthdSetTestSuite(unittest.TestSuite):
+		class MthdSetWithNoneGivesNullQuotesTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Nil", None)
+				self.assertEqual(c.Get("Nil"), '')
+
 		def suite(self):
-			pass
+			cases = self.__class__()
+			cases.addTest(cases.MthdSetWithNoneGivesNullQuotesTestCase())
+			return cases
 ###############################################################################
 ###############################################################################
 	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
@@ -129,4 +148,6 @@ class ConfigTestSuite(unittest.TestSuite):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
 		                           self.CfgMthdGetAsBoolTestSuite().suite(),
 		                           self.CfgMthdHasParmTestSuite().suite(),
-		                           self.CfgMthdParseFileTestSuite().suite()])
+		                           self.CfgMthdParseFileTestSuite().suite(),
+		                           self.CfgMthdGetTestSuite().suite(),
+		                           self.CfgMthdSetTestSuite().suite()])
