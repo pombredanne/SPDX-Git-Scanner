@@ -8,7 +8,23 @@ class ConfigTestSuite(unittest.TestSuite):
 
 #	class CfgMthdParseFileTestSuite(unittest.TestSuite):
 
-#	class CfgMthdHasParmTestSuite(unittest.TestSuite):
+	class CfgMthdHasParmTestSuite(unittest.TestSuite):
+		class MthdHasParmWithSomethingReturnsTrueTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", "X")
+				self.assertTrue(c.HasParm("Value"))
+		
+		class MthdHasParmWithNothingReturnsFalseTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				self.assertFalse(c.HasParm("NoExist"))
+
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
+			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
+			return cases
 
 #	class CfgMthdGetTestSuite(unittest.TestSuite):
 
@@ -82,4 +98,5 @@ class ConfigTestSuite(unittest.TestSuite):
 #	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
 	def suite(self):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
-		                           self.CfgMthdGetAsBoolTestSuite().suite()])
+		                           self.CfgMthdGetAsBoolTestSuite().suite(),
+		                           self.CfgMthdHasParmTestSuite().suite()])
