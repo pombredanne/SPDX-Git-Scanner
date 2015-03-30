@@ -13,7 +13,6 @@ class ConfigTestSuite(unittest.TestSuite):
 #	class CfgMthdGetTestSuite(unittest.TestSuite):
 
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
-
 		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
 			def runTest(self):
 				c = Config()
@@ -52,10 +51,35 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsNumWithIntegerValReturnsIntegerTestCase())
 			return cases
 
-#	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
+	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
+		class MthdGetAsBoolWithTrueReturnsTrueBoolean(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Boolean1", "True")
+				c.Set("Boolean2", "true")
+				c.Set("Boolean3", 'TRUE')
+				c.Set("Boolean4", "TrUe")
 
+				truth = (c.GetAsBool("Boolean1") and
+				         c.GetAsBool("Boolean2") and
+				         c.GetAsBool("Boolean3") and
+				         c.GetAsBool("Boolean4"))
+
+				self.assertTrue(truth)
+		class MthdGetAsBoolWithOtherReturnsFalseBoolean(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Boolean", "False")
+				self.assertFalse(c.GetAsBool("Boolean"))
+
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdGetAsBoolWithTrueReturnsTrueBoolean())
+			cases.addTest(cases.MthdGetAsBoolWithOtherReturnsFalseBoolean())
+			return cases
 #	class CfgMthdSetTestSuite(unittest.TestSuite):
 
 #	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
 	def suite(self):
-		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite()])
+		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
+		                           self.CfgMthdGetAsBoolTestSuite().suite()])
