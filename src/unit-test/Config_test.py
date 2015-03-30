@@ -13,6 +13,18 @@ class ConfigTestSuite(unittest.TestSuite):
 #	class CfgMthdGetTestSuite(unittest.TestSuite):
 
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
+
+		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", 1.0002)
+				self.assertEqual(c.GetAsNum("Value"), 1.0002)
+
+		class MthdGetAsNumWithIntegerValReturnsIntegerTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", 33)
+				self.assertEqual(c.GetAsNum("Value"), 33)
 		# Not to be added
 		class SprMthdGetAsNumWithBadValRaisesExceptionTestCase(unittest.TestCase):
 			badVal = None
@@ -36,12 +48,10 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases = self.__class__()
 			cases.addTest(cases.MthdGetAsNumWithStrValRaisesExceptionTestCase())
 			cases.addTest(cases.MthdGetAsNumWithNoneValRaisesExceptionTestCase())
-
+			cases.addTest(cases.MthdGetAsNumWithDecimalValReturnsFloatTestCase())
+			cases.addTest(cases.MthdGetAsNumWithIntegerValReturnsIntegerTestCase())
 			return cases
 
-#		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
-
-#		class MthdGetAsNumWithIntegerValReturnsIntegerTestCase(unittest.TestCase):
 #	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
 
 #	class CfgMthdSetTestSuite(unittest.TestSuite):
