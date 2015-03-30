@@ -4,9 +4,13 @@ sys.path.append("../")
 from Config import Config
 
 class ConfigTestSuite(unittest.TestSuite):
-#	class CfgMthdParseTestSuite(unittest.TestSuite):
+	class CfgMthdParseTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
 
-#	class CfgMthdParseFileTestSuite(unittest.TestSuite):
+	class CfgMthdParseFileTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
 
 	class CfgMthdHasParmTestSuite(unittest.TestSuite):
 		class MthdHasParmWithSomethingReturnsTrueTestCase(unittest.TestCase):
@@ -26,7 +30,9 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
 			return cases
 
-#	class CfgMthdGetTestSuite(unittest.TestSuite):
+	class CfgMthdGetTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
 
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
 		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
@@ -93,9 +99,14 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsBoolWithTrueReturnsTrueBoolean())
 			cases.addTest(cases.MthdGetAsBoolWithOtherReturnsFalseBoolean())
 			return cases
-#	class CfgMthdSetTestSuite(unittest.TestSuite):
+	class CfgMthdSetTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
 
-#	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
+	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
+			
 	def suite(self):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
 		                           self.CfgMthdGetAsBoolTestSuite().suite(),
