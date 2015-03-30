@@ -2,13 +2,16 @@ import unittest
 import sys
 sys.path.append("../")
 from Config import Config
-###############################################################################
-###############################################################################
+
 class ConfigTestSuite(unittest.TestSuite):
+###############################################################################
+# Not Started
+###############################################################################
 	class CfgMthdParseTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
 ###############################################################################
+# Unfinished
 ###############################################################################
 	class CfgMthdParseFileTestSuite(unittest.TestSuite):
 		class MthdParseFileNoFileExistsRaisesExceptionTestCase(unittest.TestCase):
@@ -16,11 +19,13 @@ class ConfigTestSuite(unittest.TestSuite):
 				c = Config()
 				with self.assertRaises(Exception):
 					c.ParseFile("I_DO_NOT_EXIST_HAHAHA.txt")
+
 		def suite(self):
 			cases = self.__class__()
 			cases.addTest(cases.MthdParseFileNoFileExistsRaisesExceptionTestCase())
 			return cases
 ###############################################################################
+# Finished
 ###############################################################################
 	class CfgMthdHasParmTestSuite(unittest.TestSuite):
 		class MthdHasParmWithSomethingReturnsTrueTestCase(unittest.TestCase):
@@ -28,7 +33,7 @@ class ConfigTestSuite(unittest.TestSuite):
 				c = Config()
 				c.Set("Value", "X")
 				self.assertTrue(c.HasParm("Value"))
-				
+
 		class MthdHasParmWithNothingReturnsFalseTestCase(unittest.TestCase):
 			def runTest(self):
 				c = Config()
@@ -40,6 +45,7 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
 			return cases
 ###############################################################################
+# Finished
 ###############################################################################
 	class CfgMthdGetTestSuite(unittest.TestSuite):
 		class MthdGetReturnsValIfExistsTestCase(unittest.TestCase):
@@ -51,12 +57,19 @@ class ConfigTestSuite(unittest.TestSuite):
 			def runTest(self):
 				c = Config()
 				self.assertEqual(c.Get("NotExistsss"), None)
+		class MthdGetReturnsValRegardlessOfCaseTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("RaNDom", "trollol")
+				self.assertEqual(c.Get("RANDOM"), "trollol")
 		def suite(self):
 			cases = self.__class__()
 			cases.addTest(cases.MthdGetReturnsValIfExistsTestCase())
 			cases.addTest(cases.MthdGetReturnsNoneIfNotExistsTestCase())
+			cases.addTest(cases.MthdGetReturnsValRegardlessOfCaseTestCase())
 			return cases
 ###############################################################################
+# Finished
 ###############################################################################
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
 		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
@@ -97,6 +110,7 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsNumWithIntegerValReturnsIntegerTestCase())
 			return cases
 ###############################################################################
+# Finished
 ###############################################################################
 	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
 		class MthdGetAsBoolWithTrueReturnsTrueBoolean(unittest.TestCase):
@@ -125,6 +139,7 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsBoolWithOtherReturnsFalseBoolean())
 			return cases
 ###############################################################################
+# Finished??? I don't know
 ###############################################################################
 	class CfgMthdSetTestSuite(unittest.TestSuite):
 		class MthdSetWithNoneGivesNullQuotesTestCase(unittest.TestCase):
@@ -138,11 +153,13 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdSetWithNoneGivesNullQuotesTestCase())
 			return cases
 ###############################################################################
+# Not Started
 ###############################################################################
 	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
 ###############################################################################
+# Suite setup
 ###############################################################################
 	def suite(self):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
