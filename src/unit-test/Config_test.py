@@ -11,8 +11,15 @@ class ConfigTestSuite(unittest.TestSuite):
 ###############################################################################
 ###############################################################################
 	class CfgMthdParseFileTestSuite(unittest.TestSuite):
+		class MthdParseFileNoFileExistsRaisesExceptionTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				with self.assertRaises(Exception):
+					c.ParseFile("I_DO_NOT_EXIST_HAHAHA.txt")
 		def suite(self):
-			pass
+			cases = self.__class__()
+			cases.addTest(cases.MthdParseFileNoFileExistsRaisesExceptionTestCase())
+			return cases
 ###############################################################################
 ###############################################################################
 	class CfgMthdHasParmTestSuite(unittest.TestSuite):
@@ -121,4 +128,5 @@ class ConfigTestSuite(unittest.TestSuite):
 	def suite(self):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
 		                           self.CfgMthdGetAsBoolTestSuite().suite(),
-		                           self.CfgMthdHasParmTestSuite().suite()])
+		                           self.CfgMthdHasParmTestSuite().suite(),
+		                           self.CfgMthdParseFileTestSuite().suite()])
