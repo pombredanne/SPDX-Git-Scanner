@@ -16,6 +16,24 @@ CommitComment		= SPDX Generation %Y%m%d%H%M%S
 // Parm Verbose - Whether or not the script should print what it's doing
 Verbose			= True
 
+// Parm DoSOCS.database_user - Overrides DoSOCS' database_user parameter
+DoSOCS.database_user	= root
+
+// Parm DoSOCS.database_pass - Overrides DoSOCS' database_pass parameter
+DoSOCS.database_pass	= 1234
+
+// Parm DoSOCS.database_host - Overrides DoSOCS' database_host parameter
+DoSOCS.database_host	= localhost
+
+// Parm DoSOCS.database_port - Overrides DoSOCS' database_port parameter
+DoSOCS.database_port	= 3306
+
+// Parm DoSOCS.database_name - Overrides DoSOCS' database_name parameter
+DoSOCS.database_name	= SPDX
+
+// Parm DoSOCS.FOSSOLOGY_PATH - Overrides DoSOCS' FOSSOLOGY_PATH parameter
+DoSOCS.FOSSOLOGY_PATH = /usr/share/fossology/nomos/agent/nomos
+
 // +---------------------------------------------------------+
 // | Always set the below values to CHANGE_ME before pushing |
 // +---------------------------------------------------------+
@@ -28,21 +46,3 @@ Verbose			= True
 
 // Parm Branch - Branch for which the script will generate SPDX document file
 //Branch 		= CHANGE_ME
-
-// Parm DoSOCS.database_user - Overrides DoSOCS' database_user parameter
-//DoSOCS.database_user	= CHANGE_ME
-
-// Parm DoSOCS.database_pass - Overrides DoSOCS' database_pass parameter
-//DoSOCS.database_pass	= CHANGE_ME
-
-// Parm DoSOCS.database_host - Overrides DoSOCS' database_host parameter
-//DoSOCS.database_host	= CHANGE_ME
-
-// Parm DoSOCS.database_port - Overrides DoSOCS' database_port parameter
-//DoSOCS.database_port	= CHANGE_ME
-
-// Parm DoSOCS.database_name - Overrides DoSOCS' database_name parameter
-//DoSOCS.database_name	= CHANGE_ME
-
-// Parm DoSOCS.FOSSOLOGY_PATH - Overrides DoSOCS' FOSSOLOGY_PATH parameter
-//DoSOCS.FOSSOLOGY_PATH = CHANGE_ME
