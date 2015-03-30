@@ -31,15 +31,6 @@ DESC: Comment the script will use when committing the output files. First run th
 NAME: Verbose
 DESC: Whether or not the script should print what it's doing
 
-NAME: User
-DESC: User name for pushing the SPDX file. If not provided, script will prompt during push.
-
-NAME: Password
-DESC: Password for the user pushing the SPDX file. If not provided, script will prompt during push.
-
-NAME: Branch
-DESC: Branch for which the script will generate SPDX document file
-
 NAME: DoSOCS.database_user
 DESC: Overrides DoSOCS' database_user parameter
 
@@ -57,3 +48,13 @@ DESC: Overrides DoSOCS' database_name parameter
 
 NAME: DoSOCS.FOSSOLOGY_PATH
 DESC: Overrides DoSOCS' FOSSOLOGY_PATH parameter
+
+NAME: User
+DESC: User name for pushing the SPDX file. If not provided, script will prompt during push.
+
+NAME: Password
+DESC: Password for the user pushing the SPDX file. If not provided, script will prompt during push.
+
+NAME: Branch
+DESC: Branch for which the script will generate SPDX document file
+
