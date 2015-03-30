@@ -1,4 +1,7 @@
 import unittest
+import sys
+sys.path.append("../")
+from Config import Config
 
 class ConfigTestSuite(unittest.TestSuite):
 #	class CfgMthdParseTestSuite(unittest.TestSuite):
@@ -15,9 +18,12 @@ class ConfigTestSuite(unittest.TestSuite):
 			badVal = None
 			def setUp(self, bv):
 				badVal = bv
-				print "Set up Super"
 			def runTest(self):
-				print "Run Super"
+				c = Config()
+				c.Set("Value", self.badVal)
+				with self.assertRaises(Exception):
+					c.GetAsNum("Value")
+				
 		class MthdGetAsNumWithStrValRaisesExceptionTestCase(SprMthdGetAsNumWithBadValRaisesExceptionTestCase):
 			def setUp(self):
 				super(self.__class__, self).setUp("Print")
