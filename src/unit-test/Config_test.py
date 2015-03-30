@@ -2,23 +2,27 @@ import unittest
 import sys
 sys.path.append("../")
 from Config import Config
-
+###############################################################################
+###############################################################################
 class ConfigTestSuite(unittest.TestSuite):
 	class CfgMthdParseTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
-
+###############################################################################
+###############################################################################
 	class CfgMthdParseFileTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
-
+###############################################################################
+###############################################################################
 	class CfgMthdHasParmTestSuite(unittest.TestSuite):
 		class MthdHasParmWithSomethingReturnsTrueTestCase(unittest.TestCase):
 			def runTest(self):
 				c = Config()
 				c.Set("Value", "X")
 				self.assertTrue(c.HasParm("Value"))
-		
+###############################################################################
+###############################################################################
 		class MthdHasParmWithNothingReturnsFalseTestCase(unittest.TestCase):
 			def runTest(self):
 				c = Config()
@@ -29,11 +33,13 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
 			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
 			return cases
-
+###############################################################################
+###############################################################################
 	class CfgMthdGetTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
-
+###############################################################################
+###############################################################################
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
 		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
 			def runTest(self):
@@ -46,7 +52,7 @@ class ConfigTestSuite(unittest.TestSuite):
 				c = Config()
 				c.Set("Value", 33)
 				self.assertEqual(c.GetAsNum("Value"), 33)
-		# Not to be added
+
 		class SprMthdGetAsNumWithBadValRaisesExceptionTestCase(unittest.TestCase):
 			badVal = None
 			def setUp(self, bv):
@@ -72,7 +78,8 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsNumWithDecimalValReturnsFloatTestCase())
 			cases.addTest(cases.MthdGetAsNumWithIntegerValReturnsIntegerTestCase())
 			return cases
-
+###############################################################################
+###############################################################################
 	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
 		class MthdGetAsBoolWithTrueReturnsTrueBoolean(unittest.TestCase):
 			def runTest(self):
@@ -99,14 +106,18 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases.addTest(cases.MthdGetAsBoolWithTrueReturnsTrueBoolean())
 			cases.addTest(cases.MthdGetAsBoolWithOtherReturnsFalseBoolean())
 			return cases
+###############################################################################
+###############################################################################
 	class CfgMthdSetTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
-
+###############################################################################
+###############################################################################
 	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
 		def suite(self):
 			pass
-			
+###############################################################################
+###############################################################################
 	def suite(self):
 		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
 		                           self.CfgMthdGetAsBoolTestSuite().suite(),
