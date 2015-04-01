@@ -1,23 +1,99 @@
 import unittest
+import sys
+sys.path.append("../")
+from Config import Config
 
 class ConfigTestSuite(unittest.TestSuite):
-#	class CfgMthdParseTestSuite(unittest.TestSuite):
+###############################################################################
+# Not Started
+###############################################################################
+	class CfgMthdParseTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
+###############################################################################
+# Unfinished
+###############################################################################
+	class CfgMthdParseFileTestSuite(unittest.TestSuite):
+		class MthdParseFileNoFileExistsRaisesExceptionTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				with self.assertRaises(Exception):
+					c.ParseFile("I_DO_NOT_EXIST_HAHAHA.txt")
 
-#	class CfgMthdParseFileTestSuite(unittest.TestSuite):
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdParseFileNoFileExistsRaisesExceptionTestCase())
+			return cases
+###############################################################################
+# Finished
+###############################################################################
+	class CfgMthdHasParmTestSuite(unittest.TestSuite):
+		class MthdHasParmWithSomethingReturnsTrueTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", "X")
+				self.assertTrue(c.HasParm("Value"))
 
-#	class CfgMthdHasParmTestSuite(unittest.TestSuite):
+		class MthdHasParmWithNothingReturnsFalseTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				self.assertFalse(c.HasParm("NoExist"))
 
-#	class CfgMthdGetTestSuite(unittest.TestSuite):
-
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
+			cases.addTest(cases.MthdHasParmWithSomethingReturnsTrueTestCase())
+			return cases
+###############################################################################
+# Finished
+###############################################################################
+	class CfgMthdGetTestSuite(unittest.TestSuite):
+		class MthdGetReturnsValIfExistsTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", "roflcopter")
+				self.assertEqual(c.Get("Value"), "roflcopter")
+		class MthdGetReturnsNoneIfNotExistsTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				self.assertEqual(c.Get("NotExistsss"), None)
+		class MthdGetReturnsValRegardlessOfCaseTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("RaNDom", "trollol")
+				self.assertEqual(c.Get("RANDOM"), "trollol")
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdGetReturnsValIfExistsTestCase())
+			cases.addTest(cases.MthdGetReturnsNoneIfNotExistsTestCase())
+			cases.addTest(cases.MthdGetReturnsValRegardlessOfCaseTestCase())
+			return cases
+###############################################################################
+# Finished
+###############################################################################
 	class CfgMthdGetAsNumTestSuite(unittest.TestSuite):
-		# Not to be added
+		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", 1.0002)
+				self.assertEqual(c.GetAsNum("Value"), 1.0002)
+
+		class MthdGetAsNumWithIntegerValReturnsIntegerTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Value", 33)
+				self.assertEqual(c.GetAsNum("Value"), 33)
+
 		class SprMthdGetAsNumWithBadValRaisesExceptionTestCase(unittest.TestCase):
 			badVal = None
 			def setUp(self, bv):
 				badVal = bv
-				print "Set up Super"
 			def runTest(self):
-				print "Run Super"
+				c = Config()
+				c.Set("Value", self.badVal)
+				with self.assertRaises(Exception):
+					c.GetAsNum("Value")
+				
 		class MthdGetAsNumWithStrValRaisesExceptionTestCase(SprMthdGetAsNumWithBadValRaisesExceptionTestCase):
 			def setUp(self):
 				super(self.__class__, self).setUp("Print")
@@ -30,16 +106,65 @@ class ConfigTestSuite(unittest.TestSuite):
 			cases = self.__class__()
 			cases.addTest(cases.MthdGetAsNumWithStrValRaisesExceptionTestCase())
 			cases.addTest(cases.MthdGetAsNumWithNoneValRaisesExceptionTestCase())
-
+			cases.addTest(cases.MthdGetAsNumWithDecimalValReturnsFloatTestCase())
+			cases.addTest(cases.MthdGetAsNumWithIntegerValReturnsIntegerTestCase())
 			return cases
+###############################################################################
+# Finished
+###############################################################################
+	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
+		class MthdGetAsBoolWithTrueReturnsTrueBoolean(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Boolean1", "True")
+				c.Set("Boolean2", "true")
+				c.Set("Boolean3", 'TRUE')
+				c.Set("Boolean4", "TrUe")
 
-#		class MthdGetAsNumWithDecimalValReturnsFloatTestCase(unittest.TestCase):
+				truth = (c.GetAsBool("Boolean1") and
+				         c.GetAsBool("Boolean2") and
+				         c.GetAsBool("Boolean3") and
+				         c.GetAsBool("Boolean4"))
 
-#		class MthdGetAsNumWithIntegerValReturnsIntegerTestCase(unittest.TestCase):
-#	class CfgMthdGetAsBoolTestSuite(unittest.TestSuite):
+				self.assertTrue(truth)
+		class MthdGetAsBoolWithOtherReturnsFalseBoolean(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Boolean", "False")
+				self.assertFalse(c.GetAsBool("Boolean"))
 
-#	class CfgMthdSetTestSuite(unittest.TestSuite):
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdGetAsBoolWithTrueReturnsTrueBoolean())
+			cases.addTest(cases.MthdGetAsBoolWithOtherReturnsFalseBoolean())
+			return cases
+###############################################################################
+# Finished??? I don't know
+###############################################################################
+	class CfgMthdSetTestSuite(unittest.TestSuite):
+		class MthdSetWithNoneGivesNullQuotesTestCase(unittest.TestCase):
+			def runTest(self):
+				c = Config()
+				c.Set("Nil", None)
+				self.assertEqual(c.Get("Nil"), '')
 
-#	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
+		def suite(self):
+			cases = self.__class__()
+			cases.addTest(cases.MthdSetWithNoneGivesNullQuotesTestCase())
+			return cases
+###############################################################################
+# Not Started
+###############################################################################
+	class CfgMthdPrintConfigTestSuite(unittest.TestSuite):
+		def suite(self):
+			pass
+###############################################################################
+# Suite setup
+###############################################################################
 	def suite(self):
-		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite()])
+		return unittest.TestSuite([self.CfgMthdGetAsNumTestSuite().suite(),
+		                           self.CfgMthdGetAsBoolTestSuite().suite(),
+		                           self.CfgMthdHasParmTestSuite().suite(),
+		                           self.CfgMthdParseFileTestSuite().suite(),
+		                           self.CfgMthdGetTestSuite().suite(),
+		                           self.CfgMthdSetTestSuite().suite()])

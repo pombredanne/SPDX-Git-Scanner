@@ -1,0 +1,1 @@
+Simply run 'runUnitTest.py' while in the \src directory.

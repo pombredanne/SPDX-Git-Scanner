@@ -112,8 +112,9 @@ class Config:
 
         self._params[ param ] = value
 
-    def PrintConfig( self ):
+    def PrintConfig( self, test=False ):
         longest = 0
+        testRet = ""
         for key in self._params.keys():
             if len(key) > longest:
                 longest = len(key)
@@ -122,9 +123,15 @@ class Config:
                 longest = len(key)
         fmt = "%-" + repr(longest) + "s = %s"
         for key in self._params.keys():
+            if test:
+                testRet += ( fmt % (key, self._params[key]) ) + "\n"
             print( fmt % (key, self._params[key]) )
         for key in self._dosocs_params.keys():
+            if test:
+                testRet += ( fmt % (key, self._dosocs_params[key]) ) + "\n"
             print( fmt % (key, self._dosocs_params[key]) )
+        if test:
+            return testRet
 
 def __TestConfig():
     c = Config()
