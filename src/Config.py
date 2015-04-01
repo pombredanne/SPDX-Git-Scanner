@@ -122,11 +122,11 @@ class Config:
         fmt = "%-" + repr(longest) + "s = %s"
         for key in self._params.keys():
             if test:
-                testRet += ( fmt % (key, self._params[key]) )
+                testRet += ( fmt % (key, self._params[key]) ) + "\n"
             print( fmt % (key, self._params[key]) )
         for key in self._dosocs_params.keys():
             if test:
-                testRet += ( fmt % (key, self._dosocs_params[key]))
+                testRet += ( fmt % (key, self._dosocs_params[key]) ) + "\n"
             print( fmt % (key, self._dosocs_params[key]) )
         if test:
             return testRet
