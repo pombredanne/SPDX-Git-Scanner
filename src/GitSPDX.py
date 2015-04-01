@@ -14,6 +14,8 @@
 # limitations under the License.
 ###############################################################################
 
+# SPDXLicenseID: Apache-2.0
+
 import sys
 import Config
 import os
