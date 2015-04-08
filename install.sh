@@ -27,6 +27,10 @@ if [[ $gemail = *[!\ ]* ]]; then
 git config --global user.email $gemail
 fi
 
+#Setup config for the user
+sed -i 's/root/'$u'/g' SPDX-Git-Scanner/src/config.txt
+sed -i 's/1234/'$p'/g' SPDX-Git-Scanner/src/config.txt
+
 #Delete Database Repo and setup files
 echo "Setting up files..."
 cp -r DoSOCS/src/*.* SPDX-Git-Scanner/src
