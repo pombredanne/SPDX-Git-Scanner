@@ -28,6 +28,9 @@ DESC: Resulting SPDX file base name. PrintType will be appended
 NAME: CommitComment
 DESC: Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
 
+NAME: AutoCommit
+DESC: Automatically commit the SPDX file to Git, defaults to true.
+
 NAME: Verbose
 DESC: Whether or not the script should print what it's doing
 
