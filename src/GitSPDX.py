@@ -66,9 +66,10 @@ def Main( config = fileConfig ):
     vSPDXFileName_Relative  = config.Get("SPDXOutputBase") + '.' + vPrintType.lower()
     vSPDXFileName_Absolute  = os.path.join( vTmpDir, vSPDXFileName_Relative )
     vCommitComment          = config.Get("CommitComment")
+    vAutoCommit             = config.GetAsBool("AutoCommit")
     vUser                   = config.Get("User")
     vPassword               = config.Get("Password")
-
+    outputDir               = "output"
     vCurrentOp              = ""
 
     vDoSOCSSettingsPath     = os.path.join(".")
@@ -144,7 +145,7 @@ def Main( config = fileConfig ):
         # Write SPDX tail
         vZipFile.close()
 
-        vCurrentOp	= "Calling DoSPDX"
+        vCurrentOp    = "Calling DoSPDX"
         DoPrint( vCurrentOp, bVerbose )
         vProcParms = [ 'python', 'DoSPDX.py'
                      , '-p', vTmpZip_Absolute
@@ -185,39 +186,44 @@ def Main( config = fileConfig ):
         vGitNtfc.add( vSPDXFileName_Relative )
 
         vRepo = git.Repo( vTmpDir )
-        if vRepo.is_dirty():
-            vCurrentOp      = "Committing SPDX changes"
-            DoPrint( vCurrentOp, bVerbose )
-            vGitNtfc.commit( message=time.strftime( vCommitComment ) )
-        
-            vAuthString = ""
-            if vUser:
-                vAuthString = "@"
-                if vPassword:
-                    vAuthString = ':' + vPassword + vAuthString
-                vAuthString = vUser + vAuthString
+        if vAutoCommit:
+            if vRepo.is_dirty():
+                vCurrentOp      = "Committing SPDX changes"
+                DoPrint( vCurrentOp, bVerbose )
+                vGitNtfc.commit( message=time.strftime( vCommitComment ) )
             
-            vPushTarg   = vBranch
-            vCxnInfo    = re.findall( r"^(https?://)?(.*)", vPushTarg )
-            if vCxnInfo:
-                vProtocol, vURL = vCxnInfo[0]
-                vPushTarg = vProtocol + vAuthString + vURL
+                vAuthString = ""
+                if vUser:
+                    vAuthString = "@"
+                    if vPassword:
+                        vAuthString = ':' + vPassword + vAuthString
+                    vAuthString = vUser + vAuthString
+                
+                vPushTarg   = vBranch
+                vCxnInfo    = re.findall( r"^(https?://)?(.*)", vPushTarg )
+                if vCxnInfo:
+                    vProtocol, vURL = vCxnInfo[0]
+                    vPushTarg = vProtocol + vAuthString + vURL
 
-            vCurrentOp      = "Connecting to remote repository"
-            DoPrint( vCurrentOp, bVerbose )
-            vRemote = git.remote.Remote( vRepo, vPushTarg )
+                vCurrentOp      = "Connecting to remote repository"
+                DoPrint( vCurrentOp, bVerbose )
+                vRemote = git.remote.Remote( vRepo, vPushTarg )
 
-            vCurrentOp      = "Pushing SPDX file to remote repository"
-            DoPrint( vCurrentOp, bVerbose )
-            vRemote.push()
+                vCurrentOp      = "Pushing SPDX file to remote repository"
+                DoPrint( vCurrentOp, bVerbose )
+                vRemote.push()
+            else:
+                DoPrint( "SPDX Document is already up to date", bVerbose )
         else:
-            DoPrint( "SPDX Document is already up to date", bVerbose )
-        
+            if not os.path.exists(outputDir):
+                os.makedirs(outputDir)
+            shutil.copyfile( vSPDXFileName_Absolute, os.path.join(outputDir, vSPDXFileName_Relative ))
+            DoPrint( "SPDX Document is now available at " + os.path.join(outputDir, vSPDXFileName_Relative ), bVerbose )
+
         # Delete local directory
         vCurrentOp          = "Deleting temporary directory"
         DoPrint( vCurrentOp, bVerbose )
         DelDir( vTmpDir )
-
     except GitCommandError as exc:
         print( '*'*30 )
         print( 'Error during "%s". Here\'s what was given to stderr:' % vCurrentOp )

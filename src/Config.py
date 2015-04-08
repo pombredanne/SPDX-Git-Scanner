@@ -28,6 +28,7 @@ class Config:
         self.Set( 'Verbose'                 , True                              )
         self.Set( 'SPDXOutputBase'          , 'SPDXFile'                        )
         self.Set( 'CommitComment'           , 'SPDX Generation %Y%m%d%H%M%S'    )
+        self.Set( 'AutoCommit'              , True                              )
         self.Set( 'User'                    , None                              )
         self.Set( 'Password'                , None                              )
         self.Set( 'PrintType'               , 'JSON'                            )

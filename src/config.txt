@@ -13,6 +13,9 @@ SPDXOutputBase		= SPDXFile
 // Parm CommitComment - Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
 CommitComment		= SPDX Generation %Y%m%d%H%M%S
 
+// Parm AutoCommit - Whether or not to auto commit to the git repo after building the SPDX file
+AutoCommit			= True
+
 // Parm Verbose - Whether or not the script should print what it's doing
 Verbose			= True
 
