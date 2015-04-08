@@ -2,7 +2,7 @@
 The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX documents. The utility will retrieve, scan, and return a single SPDX document back into the branch. Scanning is completed through the doSOCS module and files are cached in a MySQL database.
 
 #Prerequisites
-* Python 2.7
+* Python 2.7+
 * MySQL
 * Python-MySQLDB
 * FOSSology
