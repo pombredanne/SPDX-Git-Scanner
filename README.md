@@ -13,7 +13,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 #Installation
 1. Download and run install.sh
 
-    `https://raw.githubusercontent.com/SPDX-Git/SPDX-Git-Scanner/master/install.sh`
+    `wget https://raw.githubusercontent.com/SPDX-Git/SPDX-Git-Scanner/master/install.sh`
 
    `chmod +x install.sh`
    
