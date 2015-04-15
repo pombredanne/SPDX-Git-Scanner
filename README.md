@@ -11,7 +11,13 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 * Python-Git
 
 #Installation
-1. Download and run ./install.sh
+1. Download and run install.sh
+
+    `https://raw.githubusercontent.com/SPDX-Git/SPDX-Git-Scanner/master/install.sh`
+
+   `chmod +x install.sh`
+   
+   `./install.sh`
 2. Configure Git config in SPDX-Git-Scanner/src/config.txt
 
 #Usage
