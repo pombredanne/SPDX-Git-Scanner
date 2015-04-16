@@ -16,7 +16,7 @@ git clone https://github.com/socs-dev-env/DoSOCS
 
 #Install Database
 echo "Install SPDX Database..."
-mysql --user=$u --password=$p < SOCSDatabase/SQL/SPDX.sql
+mysql --user=$u --password=$p < SOCSDatabase/src/1.2/SPDX.sql
 #Exit mySql
 
 #Setup Git Globals (Optional)
