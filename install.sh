@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/
+# SPDXLicenseID: Apache-2.0
 #Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
 #Setup User Name and Password for MySql
 read -p "Enter your MySQL Username: " u
