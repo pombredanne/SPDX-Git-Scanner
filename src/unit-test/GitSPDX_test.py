@@ -43,4 +43,4 @@ class GitSPDXTestSuite(unittest.TestSuite):
     def suite(self):
         return unittest.TestSuite([self.GitMthdDelDirTestSuite.suite(),
                                    self.GitMthdMakeDirTreeTestSuite.suite(),
-                                   self.GitMthdDoPrintTestSuite.suite()]);
+                                   self.GitMthdDoPrintTestSuite.suite()])
