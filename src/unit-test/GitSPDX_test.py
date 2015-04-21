@@ -17,4 +17,30 @@
 
 # SPDXLicenseID: Apache-2.0
 
-# Nothing yet...
+
+import unittest
+import sys
+sys.path.append("../")
+from Config import Config
+
+class GitSPDXTestSuite(unittest.TestSuite):
+###############################################################################
+# Not Started
+###############################################################################
+    class GitMthdDelDirTestSuite(unittest.TestSuite):
+        def suite(self):
+            pass
+    class GitMthdMakeDirTreeTestSuite(unittest.TestSuite):
+        def suite(self):
+            pass
+    class GitMthdDoPrintTestSuite(unittest.TestSuite):
+        def suite(self):
+            pass
+
+###############################################################################
+# Suite setup
+###############################################################################
+    def suite(self):
+        return unittest.TestSuite([self.GitMthdDelDirTestSuite.suite(),
+                                   self.GitMthdMakeDirTreeTestSuite.suite(),
+                                   self.GitMthdDoPrintTestSuite.suite()]);
