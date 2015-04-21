@@ -60,7 +60,7 @@ class Config:
 
             self.Parse( vParseLines )
         except:
-            pass
+            raise Exception("File " + fileName + " does not exist\n");
 
     def HasParm( self, param ):
         return self.Get( param ) != None
