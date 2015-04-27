@@ -21,11 +21,18 @@
 import unittest
 import sys
 sys.path.append("../")
-from Config import Config
+import GitSPDX
+import Config
+import os
+
+import git.cmd
+import git.remote
+import git
+from git.exc import GitCommandError
 
 class GitSPDXTestSuite(unittest.TestSuite):
 ###############################################################################
-# Not Started
+# Not Started. Test not to be done. 
 ###############################################################################
     class GitMthdDelDirTestSuite(unittest.TestSuite):
         def suite(self):
@@ -38,9 +45,42 @@ class GitSPDXTestSuite(unittest.TestSuite):
             pass
 
 ###############################################################################
+# Assumptions:
+# - You configure everything correctly
+# - This shall test the SPDX file has been pushed.
+###############################################################################
+    class GitSPDXPushIsSuccessfulTestCase(unittest.TestCase):
+        def runTest(self):
+            # Again, we are assuming the user has configured his or her git
+            # branch, and so on.
+            fileConfig = Config.Config()
+            fileConfig.ParseFile( 'config.txt' )
+
+            os.system("cd ..")
+            GitSPDX.Main(fileConfig)
+
+
+            branch = fileConfig.Get("Branch")
+
+            os.system("cd unit-test")
+           # GitSPDXDelDir("TMP")
+            os.makedirs("TMP")
+            gitd = git.cmd.Git("TMP")
+            gitd.init()
+            gitd.pull(branch)
+            self.assertTrue(os.path.isfile("TMP/SPDXFile.json"))
+
+        def tearDown(self):
+            GitSPDX.DelDir("TMP")
+
+###############################################################################
 # Suite setup
 ###############################################################################
     def suite(self):
-        return unittest.TestSuite([self.GitMthdDelDirTestSuite.suite(),
-                                   self.GitMthdMakeDirTreeTestSuite.suite(),
-                                   self.GitMthdDoPrintTestSuite.suite()])
+        #return unittest.TestSuite([self.GitMthdDelDirTestSuite.suite(),
+        #                           self.GitMthdMakeDirTreeTestSuite.suite(),
+        #                           self.GitMthdDoPrintTestSsuite.suite()])
+
+        cases = self.__class__()
+        cases.addTest(cases.GitSPDXPushIsSuccessfulTestCase())
+        return cases
