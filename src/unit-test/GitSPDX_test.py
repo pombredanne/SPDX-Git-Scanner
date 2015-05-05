@@ -47,7 +47,7 @@ class GitSPDXTestSuite(unittest.TestSuite):
 ###############################################################################
 # Assumptions:
 # - You configure everything correctly
-# - This shall test the SPDX file has been pushed.
+# - This shall test the SPDX file has been pushed with autocommit on.
 ###############################################################################
     class GitSPDXPushIsSuccessfulTestCase(unittest.TestCase):
         def runTest(self):
@@ -58,7 +58,6 @@ class GitSPDXTestSuite(unittest.TestSuite):
 
             os.system("cd ..")
             GitSPDX.Main(fileConfig)
-
 
             branch = fileConfig.Get("Branch")
 
@@ -72,7 +71,24 @@ class GitSPDXTestSuite(unittest.TestSuite):
 
         def tearDown(self):
             GitSPDX.DelDir("TMP")
+            
+    ###################################################################
+    # If you have changed the config in any way, testconfig.txt must
+    # also be changed for the unit tests to work as intended.
+    ###################################################################
+    class GitSPDXAutoCommOffIsSuccessfulTestCase(unittest.TestCase):
+    	def runTest(self):
+    		fileConfig = Config.Config()
+    		fileConfig.ParseFile( 'unit-test/testconfig.txt')
 
+    		os.system("cd ..")
+    		GitSPDX.Main(fileConfig)
+
+            self.assertTrue(os.path.isfile("output/SPDXFile.json"))
+
+        def tearDown(self):
+            GitSPDX.DelDir("output")
+   		
 ###############################################################################
 # Suite setup
 ###############################################################################
@@ -83,4 +99,5 @@ class GitSPDXTestSuite(unittest.TestSuite):
 
         cases = self.__class__()
         cases.addTest(cases.GitSPDXPushIsSuccessfulTestCase())
+        cases.addTest(cases.GitSPDXAutoCommOffIsSuccessfulTestCase())
         return cases
