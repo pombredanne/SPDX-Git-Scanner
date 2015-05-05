@@ -20,10 +20,10 @@ AutoCommit			= False
 Verbose			= True
 
 // Parm DoSOCS.database_user - Overrides DoSOCS' database_user parameter
-DoSOCS.database_user	= root
+DoSOCS.database_user	= 
 
 // Parm DoSOCS.database_pass - Overrides DoSOCS' database_pass parameter
-DoSOCS.database_pass	= 1234
+DoSOCS.database_pass	= 
 
 // Parm DoSOCS.database_host - Overrides DoSOCS' database_host parameter
 DoSOCS.database_host	= localhost

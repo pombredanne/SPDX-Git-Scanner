@@ -71,24 +71,24 @@ class GitSPDXTestSuite(unittest.TestSuite):
 
         def tearDown(self):
             GitSPDX.DelDir("TMP")
-            
+
     ###################################################################
     # If you have changed the config in any way, testconfig.txt must
     # also be changed for the unit tests to work as intended.
     ###################################################################
     class GitSPDXAutoCommOffIsSuccessfulTestCase(unittest.TestCase):
-    	def runTest(self):
-    		fileConfig = Config.Config()
-    		fileConfig.ParseFile( 'unit-test/testconfig.txt')
+        def runTest(self):
+            fileConfig = Config.Config()
+            fileConfig.ParseFile( 'unit-test/testconfig.txt')
 
-    		os.system("cd ..")
-    		GitSPDX.Main(fileConfig)
+            os.system("cd ..")
+            GitSPDX.Main(fileConfig)
 
             self.assertTrue(os.path.isfile("output/SPDXFile.json"))
 
         def tearDown(self):
             GitSPDX.DelDir("output")
-   		
+        
 ###############################################################################
 # Suite setup
 ###############################################################################

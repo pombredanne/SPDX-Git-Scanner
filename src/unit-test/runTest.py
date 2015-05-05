@@ -23,6 +23,7 @@ import GitSPDX_test
 
 
 
-suite = unittest.TestSuite([Config_test.ConfigTestSuite().suite()])
+suite = unittest.TestSuite([Config_test.ConfigTestSuite().suite(),
+                            GitSPDX_test.GitSPDXTestSuite().suite()])
 
 unittest.TextTestRunner().run(suite)
