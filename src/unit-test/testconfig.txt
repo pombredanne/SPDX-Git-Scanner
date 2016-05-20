@@ -1,0 +1,51 @@
+// Parm TmpDir - Directory to use for temporary pull down target branch
+TmpDir			= TMP
+
+// Parm TmpZip - Name to use for temporary package created from branch
+TmpZip			= SPDXPackagedFiles.zip
+
+// Parm PrintType - Output type of SPDX file (currently JSON, RDF, and TAG are supported)
+PrintType		= JSON
+
+// Parm SPDXOutputBase - Resulting SPDX file base name. PrintType will be appended
+SPDXOutputBase		= SPDXFile
+
+// Parm CommitComment - Comment the script will use when committing the output files. First run through time.strftime(), so format parameters apply.
+CommitComment		= SPDX Generation %Y%m%d%H%M%S
+
+// Parm AutoCommit - Whether or not to auto commit to the git repo after building the SPDX file
+AutoCommit			= False
+
+// Parm Verbose - Whether or not the script should print what it's doing
+Verbose			= True
+
+// Parm DoSOCS.database_user - Overrides DoSOCS' database_user parameter
+DoSOCS.database_user	= 
+
+// Parm DoSOCS.database_pass - Overrides DoSOCS' database_pass parameter
+DoSOCS.database_pass	= 
+
+// Parm DoSOCS.database_host - Overrides DoSOCS' database_host parameter
+DoSOCS.database_host	= localhost
+
+// Parm DoSOCS.database_port - Overrides DoSOCS' database_port parameter
+DoSOCS.database_port	= 3306
+
+// Parm DoSOCS.database_name - Overrides DoSOCS' database_name parameter
+DoSOCS.database_name	= SPDX
+
+// Parm DoSOCS.FOSSOLOGY_PATH - Overrides DoSOCS' FOSSOLOGY_PATH parameter
+DoSOCS.FOSSOLOGY_PATH = /usr/share/fossology/nomos/agent/nomos
+
+// +---------------------------------------------------------+
+// | Always set the below values to CHANGE_ME before pushing |
+// +---------------------------------------------------------+
+
+// Parm User - User name for pushing the SPDX file. If not provided, script will prompt during push.
+//User			= CHANGE_ME
+
+// Parm Password - Password for the user pushing the SPDX file. If not provided, script will prompt during push.
+//Password		= CHANGE_ME
+
+// Parm Branch - Branch for which the script will generate SPDX document file
+Branch 		= /PATH_TO_SPDX_SCANNER_HERE/SPDX-Git-Scanner/

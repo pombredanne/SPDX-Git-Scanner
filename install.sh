@@ -1,4 +1,5 @@
 #!/bin/bash
+# SPDXLicenseID: Apache-2.0
 #Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
 #Setup User Name and Password for MySql
 read -p "Enter your MySQL Username: " u
@@ -16,7 +17,7 @@ git clone https://github.com/socs-dev-env/DoSOCS
 
 #Install Database
 echo "Install SPDX Database..."
-mysql --user=$u --password=$p < SOCSDatabase/SQL/SPDX.sql
+mysql --user=$u --password=$p < SOCSDatabase/src/1.2/SPDX.sql
 #Exit mySql
 
 #Setup Git Globals (Optional)

@@ -23,6 +23,7 @@ class Config:
         self._params = {}
         self._dosocs_params = {}
 
+        # Default values for variables
         self.Set( 'TmpDir'                  , os.path.join('.','TMP')           )
         self.Set( 'TmpZip'                  , 'SPDXPackagedFiles.zip'           )
         self.Set( 'Verbose'                 , True                              )
@@ -39,20 +40,25 @@ class Config:
         self.Set( 'DoSOCS.database_port'    , None                              )
         self.Set( 'DoSOCS.database_name'    , None                              )
 
+    # Processes a list of params and sets the value in the config
     def Parse( self, paramList ):
         for param in paramList:
+            
+            # If '=' isn't in the param, it is a basic flag. Nothing currently uses this, but the support is here
             if not '=' in param:
-                name, value = param,""
+                name, value = param,""              # Just add the name with no value
             else:
-                name, value = param.split('=',1)
+                name, value = param.split('=',1)    #  Split on the first '='
             self.Set( name, value )
 
+    # Parses an entire file for parameters
     def ParseFile( self, fileName ):
         try:
             file = open( fileName, 'r' )
             lines = file.readlines()
             file.close()
 
+            # Check all the lines. We'll only process lines that aren't comment-lines
             vParseLines = []
             for line in lines:
                 if not line.strip().startswith('//'):
@@ -60,62 +66,81 @@ class Config:
 
             self.Parse( vParseLines )
         except:
-            pass
+            raise Exception( "File " + fileName + " does not exist\n" )
 
+    # Basic check for the existence of a param
     def HasParm( self, param ):
         return self.Get( param ) != None
 
+    # Gets the value of a parameter. If it doesn't exist, returns None
     def Get( self, param ):
         param = param.lower()
         if param in self._params.keys():
             return self._params[ param ]
         return None
 
+    # Gets parameters that are specifically meant to pass into DoSOCS' config
     def GetDoSOCSParms( self ):
         return self._dosocs_params
 
+    # Gets a parameter as a number if possible, otherwise throw an exception
     def GetAsNum( self, param ):
         value = self.Get(param)
         try:
-            if '.' in value:
+            if '.' in value:            # If it has a period, assume it's a decimal
                 return float(value)
-            else:
-                return int(value)
+            else:                       # Otherwise, assume it's an integer (or long)
+                return int(value) 
         except:
             raise Exception( "Expected value to be a number, but there was an error converting it: [" + value + "]" )
 
+    # Gets a parameter as a bool (true if parameter is case-insensitive "true", false otherwise)
     def GetAsBool( self, param ):
         value = self.Get(param)
         return value != None and value.lower() == 'true'
 
+    # Sets a DoSOCS parameter. The names here ARE case sensitive, since that's what DoSOCS requires
     def SetDoSOCS( self, param, value ):
         if not len(param):
             return
         self._dosocs_params[param] = value
         
+    # Sets any parameter. If it's determined to be a DoSOCS parameter, call out to the correct method
     def Set( self, param, value ):
         
+        # Get rid of beginning/ending spaces
         param = param.strip()
+        
+        # If it's empty, we don't want to set anything
         if not len(param):
             return
 
+        # Swap 'None' to be an empty string (only happens with default parameters)
         if value == None:
             value = ''
+        # For non-strings, convert it to string
         elif not type(value) == str:
             value = repr(value)
+        
+        # Get rid of beginning/ending spaces
         value = value.strip()
 
+        # Check if this is a DoSOCS parameter
         l_param = param.lower()
         if l_param.startswith("dosocs."):
-            self.SetDoSOCS( param[7:], value )
-            return
+            self.SetDoSOCS( param[7:], value ) # If it is, drop the 'dosocs.' call out to the right function
+            return                             #  and we're done
+        
+        # Use the lower-case name so our dictionary is case-insensitive
         param = l_param
 
+        # Add the value to the dictionary
         self._params[ param ] = value
 
-    def PrintConfig( self, test=False ):
+    # Print the entire config. Also returns it as a string for testing purposes.
+    def PrintConfig( self ):
         longest = 0
-        testRet = ""
+        asString = ""
         for key in self._params.keys():
             if len(key) > longest:
                 longest = len(key)
@@ -124,16 +149,16 @@ class Config:
                 longest = len(key)
         fmt = "%-" + repr(longest) + "s = %s"
         for key in self._params.keys():
-            if test:
-                testRet += ( fmt % (key, self._params[key]) ) + "\n"
-            print( fmt % (key, self._params[key]) )
+            cur = fmt % (key, self._params[key])
+            asString +=  cur + "\n"
+            print( cur )
         for key in self._dosocs_params.keys():
-            if test:
-                testRet += ( fmt % (key, self._dosocs_params[key]) ) + "\n"
-            print( fmt % (key, self._dosocs_params[key]) )
-        if test:
-            return testRet
+            cur = fmt % (key, self._dosocs_params[key])
+            asString +=  cur + "\n"
+            print( cur )
+        return asString
 
+# Tests some of the configuration functions
 def __TestConfig():
     c = Config()
     firstList = """
@@ -164,5 +189,6 @@ def __TestConfig():
     except Exception as e:
         print( e )
 
+# If the config is run as the main script, run the test
 if __name__ == '__main__':
     __TestConfig()

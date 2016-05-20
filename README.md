@@ -1,5 +1,5 @@
 # SPDX-Git-Scanner
-The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX documents. The utility will retrieve, scan, and return a single SPDX document back into the branch. Scanning is completed through the doSOCS module and files are cached in a MySQL database.
+The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX documents. The utility will retrieve, scan, and return a single SPDX document back into the branch. Scanning is completed through the [doSOCS](https://github.com/socs-dev-env/DoSOCS) module and files are cached in a MySQL database through [SOCsDatabase](https://github.com/socs-dev-env/SOCSDatabase).
 
 #Prerequisites
 * Python 2.7+
@@ -11,7 +11,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 * Python-Git
 
 #Installation
-1. Download and run ./install.sh
+1. Download and run install.sh
 2. Configure Git config in SPDX-Git-Scanner/src/config.txt
 
 #Usage
@@ -20,7 +20,7 @@ The SPDX-Git-Scanner is aimed at processing branches from Git into SPDX document
 #License
 Source Code: Apache 2.0
 
-Documentation: Creative Commons 4.0
+Documentation: Creative Commons 4.0 - Attribution-ShareAlike 4.0 International.
 
 #Copyright
 Copyright © 2015 Daniel Patten, Zachary Meyer, and Jacob Vosik
